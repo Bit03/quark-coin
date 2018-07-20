@@ -1,3 +1,4 @@
 bitcoin-price-api==0.0.4
 apscheduler==3.5.1
 influxdb==5.0.0
+SQLAlchemy==1.2.10

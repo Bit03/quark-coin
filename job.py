@@ -6,7 +6,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from exchanges.bitcoin import Bitfinex
 from influxdb import InfluxDBClient
 
-client = InfluxDBClient('10.0.1.71', 8086, 'root', 'root', 'bitcoin')
+client = InfluxDBClient('172.16.51.171', 8086, 'root', 'root', 'bitcoin')
 client.create_database('bitcoin')
 
 
@@ -25,6 +25,7 @@ def fetch_bitcon_price():
             "ask": float(current_data.get("ask")),
         }
     }]
+    print(json_body)
     client.write_points(json_body)
 
 
@@ -47,12 +48,8 @@ if __name__ == '__main__':
         jobstores=jobstores,
         executors=executors,
         job_defaults=job_defaults)
-    #
-    # print(fetch_bitcon_price())
-
 
     scheduler.add_job(fetch_bitcon_price, 'interval', seconds=5, id='fetch_bitcon_job_id')
     scheduler.remove_job(job_id="fetch_bitcon_job_id")
-    #
     scheduler.start()
     print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))

@@ -1,3 +1,6 @@
+from datetime import datetime
+from decimal import Decimal
+
 from exchanges.base import Exchange
 
 
@@ -16,3 +19,11 @@ class Bitfinex(Exchange):
     @classmethod
     def _current_ask_extractor(cls, data):
         return data.get('ask')
+
+    @classmethod
+    def _current_datetime_extractor(cls, data):
+        _timestamp = data.get('timestamp')
+
+        return datetime.fromtimestamp(
+                Decimal(_timestamp)
+            )

@@ -62,10 +62,16 @@ class Exchange(ExchangeBase):
     def _current_ask_extractor(self, data):
         raise NotImplementedError
 
+    def _current_datetime_extractor(self, data):
+        raise NotImplementedError
+
     def get_current_data(self):
-        return {'last': self.get_current_price(),
-                'bid': self.get_current_bid(),
-                'ask': self.get_current_ask()}
+        return {
+            'last': self.get_current_price(),
+            'bid': self.get_current_bid(),
+            'ask': self.get_current_ask(),
+            'datetime': self.get_current_datetime()
+        }
 
     def get_current_price(self):
         self.get_data()
@@ -81,6 +87,11 @@ class Exchange(ExchangeBase):
         self.get_data()
         price = self._current_ask_extractor(self.data)
         return Decimal(price)
+
+    def get_current_datetime(self):
+        self.get_data()
+        datetime = self._current_datetime_extractor(self.data)
+        return datetime
 
 
 class FuturesExchange(ExchangeBase):

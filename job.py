@@ -5,13 +5,12 @@ from datetime import datetime
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from apscheduler.executors.pool import ProcessPoolExecutor
 from apscheduler.schedulers.background import BackgroundScheduler
-# from exchanges import Bitfinex
+from exchanges.bitcoin import Bitfinex
 
 
 def fetch_bitcon_price():
-    pass
-    # current_price = Bitfinex().get_current_price()
-    # print(current_price)
+    current_price = Bitfinex().get_current_data()
+    print(current_price)
 
 
 jobstores = {

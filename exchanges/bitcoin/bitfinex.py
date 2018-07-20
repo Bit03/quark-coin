@@ -24,6 +24,6 @@ class Bitfinex(Exchange):
     def _current_datetime_extractor(cls, data):
         _timestamp = data.get('timestamp')
 
-        return datetime.fromtimestamp(
+        return datetime.utcfromtimestamp(
                 Decimal(_timestamp)
             )

@@ -91,7 +91,7 @@ class Exchange(ExchangeBase):
     def get_current_datetime(self):
         self.get_data()
         datetime = self._current_datetime_extractor(self.data)
-        return datetime
+        return datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 class FuturesExchange(ExchangeBase):
